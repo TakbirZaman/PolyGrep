@@ -1,0 +1,14 @@
+#pragma once
+#define IDD_MAIN_DIALOG   101
+#define IDC_EDIT_ROOT     1001
+#define IDC_BTN_BROWSE    1002
+#define IDC_EDIT_PATTERN  1003
+#define IDC_EDIT_EXT      1004
+#define IDC_CHK_REGEX     1005
+#define IDC_CHK_CASE      1006
+#define IDC_EDIT_THREADS  1007
+#define IDC_EDIT_MAX      1008
+#define IDC_BTN_SEARCH    1009
+#define IDC_BTN_CANCEL    1010
+#define IDC_LIST_RESULTS  1011
+#define IDC_STATIC_STATUS 1012

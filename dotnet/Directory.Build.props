@@ -1,0 +1,18 @@
+<Project>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <!-- Folder holding threadforge.dll (Windows) / libthreadforge.so (Linux).
+         Override: dotnet build -p:ThreadForgeNativeDir=C:\path\to\build\Release -->
+    <ThreadForgeNativeDir Condition="'$(ThreadForgeNativeDir)' == ''">$(MSBuildThisFileDirectory)..\build\Release</ThreadForgeNativeDir>
+  </PropertyGroup>
+
+  <!-- Copy the native library next to every executable, whichever platform file exists. -->
+  <ItemGroup Condition="'$(IsTestProject)' == 'true' Or '$(OutputType)' == 'WinExe' Or '$(OutputType)' == 'Exe'">
+    <None Include="$(ThreadForgeNativeDir)\threadforge.dll" Condition="Exists('$(ThreadForgeNativeDir)\threadforge.dll')"
+          CopyToOutputDirectory="PreserveNewest" Visible="false" />
+    <None Include="$(ThreadForgeNativeDir)\libthreadforge.so" Condition="Exists('$(ThreadForgeNativeDir)\libthreadforge.so')"
+          CopyToOutputDirectory="PreserveNewest" Visible="false" />
+  </ItemGroup>
+</Project>
