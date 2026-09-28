@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure (no Qt on runner)
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DTF_BUILD_QT=OFF
+
+      - name: Build core + CLI + tests + shared lib
+        run: cmake --build build --config Release
+
+      - name: C++ tests
+        run: ctest --test-dir build -C Release --output-on-failure
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: .NET interop tests (against build/libthreadforge.so)
+        working-directory: dotnet
+        run: dotnet run --project ThreadForge.Interop.Tests -c Release -p:ThreadForgeNativeDir=$PWD/../build
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure (MFC ships with the runner's VS; Qt absent -> skipped)
+        run: cmake -S . -B build -DTF_BUILD_QT=OFF
+
+      - name: Build everything (core, CLI, tests, DLL, MFC)
+        run: cmake --build build --config Release
+
+      - name: C++ tests
+        run: ctest --test-dir build -C Release --output-on-failure
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: .NET interop tests (against build/Release/threadforge.dll)
+        working-directory: dotnet
+        run: dotnet run --project ThreadForge.Interop.Tests -c Release
+
+      - name: Build WPF
+        working-directory: dotnet
+        run: dotnet build ThreadForge.Wpf/ThreadForge.Wpf.csproj -c Release
+
+      - name: Build WinForms
+        working-directory: dotnet
+        run: dotnet build ThreadForge.WinForms/ThreadForge.WinForms.csproj -c Release
