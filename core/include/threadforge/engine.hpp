@@ -1,5 +1,5 @@
 #pragma once
-// ThreadForge engine: parallel recursive text search + word-frequency index.
+// PolyGrep engine: parallel recursive text search + word-frequency index.
 #include <atomic>
 #include <cstdint>
 #include <functional>

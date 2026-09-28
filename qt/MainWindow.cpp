@@ -18,7 +18,7 @@
 #include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
-    setWindowTitle("ThreadForge - Qt");
+    setWindowTitle("PolyGrep - Qt");
     resize(980, 640);
 
     root_ = new QLineEdit(QDir::currentPath());
@@ -156,7 +156,7 @@ void MainWindow::onFinished(const QString& error) {
     setRunning(false);
     if (!error.isEmpty()) {
         status_->setText("Error: " + error);
-        QMessageBox::warning(this, "ThreadForge", error);
+        QMessageBox::warning(this, "PolyGrep", error);
     }
 }
 

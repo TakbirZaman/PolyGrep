@@ -27,7 +27,7 @@ public sealed class MainForm : Form
 
     public MainForm()
     {
-        Text = "ThreadForge - WinForms";
+        Text = "PolyGrep - WinForms";
         Size = new Size(980, 640);
         MinimumSize = new Size(720, 420);
 
@@ -105,7 +105,7 @@ public sealed class MainForm : Form
         }
         catch (SearchException ex)
         {
-            MessageBox.Show(this, ex.Message, "ThreadForge", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(this, ex.Message, "PolyGrep", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         finally
         {

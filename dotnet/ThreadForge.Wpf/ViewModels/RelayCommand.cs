@@ -18,6 +18,6 @@ public sealed class RelayCommand(Func<Task> execute, Func<bool>? canExecute = nu
     public async void Execute(object? parameter)
     {
         try { await execute(); }
-        catch (Exception ex) { System.Windows.MessageBox.Show(ex.Message, "ThreadForge"); }
+        catch (Exception ex) { System.Windows.MessageBox.Show(ex.Message, "PolyGrep"); }
     }
 }
